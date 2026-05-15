@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/fido4vc/fido-vc-wallet-ui/compare/v1.0.0...v1.0.1) (2026-05-15)
+
+
+### Bug Fixes
+
+* **docker:** bake NEXT_PUBLIC_* into the wallet-ui build ([40b0f66](https://github.com/fido4vc/fido-vc-wallet-ui/commit/40b0f66c087703cc80b50b15d9d683abcbf454aa))
+
 # 1.0.0 (2026-05-15)
 
 
