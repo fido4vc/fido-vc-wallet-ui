@@ -46,8 +46,17 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="space-y-4">
             {error && (
-              <div className="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 px-4 py-3 rounded-md text-sm">
-                {error}
+              <div className="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 px-4 py-3 rounded-md text-sm space-y-1">
+                <div>{error}</div>
+                <div className="text-xs">
+                  Don&apos;t have an account?{' '}
+                  <Link
+                    href="/register"
+                    className="font-medium underline hover:no-underline"
+                  >
+                    Sign up
+                  </Link>
+                </div>
               </div>
             )}
 

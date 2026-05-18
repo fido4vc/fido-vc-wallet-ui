@@ -12,6 +12,28 @@ function getFullUrl(endpoint: string): string {
   return `${baseUrl}/${cleanEndpoint}`;
 }
 
+// walt.id error responses look like {"exception": true, "id": "Unauth"} —
+// no `.error` or `.message` field. Map the codes we know to user-friendly
+// strings; otherwise fall back to whatever string-ish thing is available.
+function extractErrorMessage(data: unknown, status: number): string {
+  if (typeof data === 'string' && data) return data;
+  if (data && typeof data === 'object') {
+    const obj = data as Record<string, unknown>;
+    if (typeof obj.error === 'string') return obj.error;
+    if (typeof obj.message === 'string') return obj.message;
+    if (typeof obj.id === 'string') {
+      const friendly: Record<string, string> = {
+        Unauth: 'Invalid email or password',
+      };
+      return friendly[obj.id] ?? obj.id;
+    }
+  }
+  if (status === 401) return 'Authentication failed';
+  if (status === 403) return 'Forbidden';
+  if (status === 404) return 'Not found';
+  return 'Request failed';
+}
+
 async function request<T>(endpoint: string, options: ApiRequestOptions = {}): Promise<T> {
   const { method = 'GET', body, headers = {}, requiresAuth = true } = options;
 
@@ -39,7 +61,7 @@ async function request<T>(endpoint: string, options: ApiRequestOptions = {}): Pr
       : await response.text();
 
     if (!response.ok) {
-      throw new ApiError(data?.error || data || 'Request failed', response.status, data);
+      throw new ApiError(extractErrorMessage(data, response.status), response.status, data);
     }
 
     return data as T;
