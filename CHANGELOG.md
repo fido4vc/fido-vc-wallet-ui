@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/fido4vc/fido-vc-wallet-ui/compare/v1.0.1...v1.0.2) (2026-05-18)
+
+
+### Bug Fixes
+
+* **auth:** show proper error message and cross-page hint ([55acee6](https://github.com/fido4vc/fido-vc-wallet-ui/commit/55acee69167da992c90c8eccd176353dbe49b620))
+
 ## [1.0.1](https://github.com/fido4vc/fido-vc-wallet-ui/compare/v1.0.0...v1.0.1) (2026-05-15)
 
 
